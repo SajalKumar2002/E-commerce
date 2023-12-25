@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon backend/server.js"
+    "server": "nodemon backend/server.js",
+    "client":"npm start --prefix frontend",
+    "start":"concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
