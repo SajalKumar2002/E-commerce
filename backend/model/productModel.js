@@ -25,7 +25,7 @@ const reviewSchema = mongoose.Schema(
   }
 );
 
-const productSchema = new Mongoose.Schema(
+const productSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
