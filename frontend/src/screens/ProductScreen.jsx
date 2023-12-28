@@ -13,17 +13,17 @@ import {
 import Rating from "../components/Rating";
 
 const ProductScreen = () => {
-  const [product, setProducts] = useState();
-
+  const [products, setProducts] = useState([]);
+  
   const { id: productId } = useParams();
-
+  
   useEffect(() => {
     const fetchProduct = async () => {
-      const {data} = await axios.get(`/api/product/${productId}`)
-      setProducts(data.default);
-    }
+      const response = (await axios.get(`/api/product/${productId}`)).data;
+      setProducts(response);
+    };
 
-    fetchProduct();
+    setTimeout(() => fetchProduct(),"2000");
   }, [productId]);
 
   return (
@@ -33,18 +33,18 @@ const ProductScreen = () => {
       </Link>
       <Row>
         <Col md={5}>
-          <Image src={product.image} alt={product.name} fluid></Image>
+          <Image src={products.image} alt={products.name} fluid></Image>
         </Col>
         <Col md={4}>
           <ListGroup variant="flush">
             <ListGroupItem>
-              <h3>{product.name}</h3>
+              <h3>{products.name}</h3>
             </ListGroupItem>
             <ListGroupItem>
-              <Rating value={product.rating} text={`${product.numReviews}`} />
+              <Rating value={products.rating} text={`${products.reviews}`} />
             </ListGroupItem>
-            <ListGroupItem>Price: ${product.price}</ListGroupItem>
-            <ListGroupItem>Price: ${product.description}</ListGroupItem>
+            <ListGroupItem>Price: ${products.price}</ListGroupItem>
+            <ListGroupItem>Price: ${products.description}</ListGroupItem>
           </ListGroup>
         </Col>
         <Col md={3}>
@@ -54,7 +54,7 @@ const ProductScreen = () => {
                 <Row>
                   <Col>Price:</Col>
                   <Col>
-                    <strong>${product.price}</strong>
+                    <strong>${products.price}</strong>
                   </Col>
                 </Row>
               </ListGroupItem>
@@ -63,7 +63,7 @@ const ProductScreen = () => {
                   <Col>Status:</Col>
                   <Col>
                     <strong>
-                      {product.countInstock > 0 ? "In Stock" : "Out of Stock"}
+                      {products.countInstock > 0 ? "In Stock" : "Out of Stock"}
                     </strong>
                   </Col>
                 </Row>
@@ -72,7 +72,7 @@ const ProductScreen = () => {
                 <Button
                   className="btn-block"
                   type="button"
-                  disabled={product.countInstock === 0}
+                  disabled={products.countInstock === 0}
                 >
                   Add to Cart
                 </Button>

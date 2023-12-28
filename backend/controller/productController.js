@@ -1,18 +1,19 @@
 const productModel = require("../model/productModel");
-const products = require("../Data/product");
 const asyncHandler = require("../middleware/asyncHandler");
 
 const displayProduct = asyncHandler(async (req, res) => {
-  const product = await products.find({});
+  const product = await productModel.find({});
   res.json(product);
 });
 
 const displayProductbyId = asyncHandler(async (req, res) => {
-  const product = await products.findById(req.params.id);
-  if(product) {
+  const product = await productModel.findById(req.params.id);
+  if (product) {
     res.json(product);
+  } else {
+    res.status(404);
+    throw new Error("Resource not found");
   }
-  res.status(404).json({message: "Product Not Found"});
 });
 
 module.exports = {

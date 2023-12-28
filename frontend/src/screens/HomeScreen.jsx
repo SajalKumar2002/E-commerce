@@ -8,8 +8,8 @@ function HomeScreen() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const {data} = await axios.get("/api/products");
-      setProducts(data.default);
+      const {data} = await axios.get("/api/product");
+      setProducts(data);
     };
     fetchProducts();
   }, []);
