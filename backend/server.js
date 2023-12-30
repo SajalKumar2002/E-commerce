@@ -9,7 +9,7 @@ const app = express();
 
 const ProductRouter = require("./routes/product");
 
-app.use("/api/product", ProductRouter);
+app.use("/api/products", ProductRouter);
 
 app.use(notFound);
 app.use(errorHandler);
